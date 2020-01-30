@@ -14,14 +14,15 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -29,6 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class CategoryControllerTest {
 
     public static final ObjectMapper om = new ObjectMapper();
+    public static final String RANDOMID = "RANDOMID";
 
     @MockBean
     private CategoryService categoryService;
@@ -55,7 +57,7 @@ class CategoryControllerTest {
 
         for (int i = 0; i < 2; i++) {
             Category category = new Category();
-            category.setId("RANDOMID"+i);
+            category.setId(RANDOMID +i);
             category.setName("fist name " + i);
             categoryList.add(category);
         }
@@ -90,7 +92,35 @@ class CategoryControllerTest {
         verify(categoryService, times(0)).create(body);
     }
 
+
+
     // FIXME: 30-01-2020 need to add unique constraint test
+    @Test
+    void getById() throws Exception {
+
+        Category category = new Category();
+        category.setId(RANDOMID);
+        category.setName("name");
+        when(categoryService.getById(RANDOMID))
+                .thenReturn(Optional.of(category));
+
+        mockMvc.perform(get("/api/category/" + RANDOMID))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(RANDOMID)));
+        verify(categoryService, times(1)).getById(RANDOMID);
+
+    }
+    @Test
+    void getByIdInvalidId() throws Exception {
+
+        Category category = new Category();
+
+        mockMvc.perform(get("/api/category/" + RANDOMID))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.message", containsString(RANDOMID)));
+        verify(categoryService, times(1)).getById(RANDOMID);
+
+    }
 
 
 }
