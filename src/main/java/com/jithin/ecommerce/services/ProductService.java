@@ -9,4 +9,5 @@ public class ProductService extends BaseService<ProductRepository, Product> {
     public ProductService(ProductRepository repository) {
         super(repository);
     }
+
 }
