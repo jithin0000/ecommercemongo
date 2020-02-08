@@ -19,12 +19,15 @@ public class Product {
     @NotNull(message = "name is required field")
     private String name;
 
+    @NotNull(message="image_url is required field")
+    private List<String> image_url = new ArrayList<>();
+
     @DBRef
     private Category category;
 
     @NotNull(message = "description is required field")
     private String description;
-    @NotNull(message="price is required field")
+    @NotNull(message = "price is required field")
     private int price;
     @NotNull(message = "quantity is required field")
     private int quantity;

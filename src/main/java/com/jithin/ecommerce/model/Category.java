@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -21,6 +22,7 @@ public class Category {
     @Indexed(unique = true)
     private String name;
 
+    private Date created = new Date();
 
 }
 
