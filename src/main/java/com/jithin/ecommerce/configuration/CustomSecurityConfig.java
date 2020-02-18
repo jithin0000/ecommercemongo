@@ -75,6 +75,10 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*/*.css",
                         "/**/*/*.js"
                 ).permitAll()
+                .antMatchers(HttpMethod.GET,
+                        "/api/category/**",
+                        "/api/product/**"
+                ).permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(jwtAuthFilter(), UsernamePasswordAuthenticationFilter.class);
     }
