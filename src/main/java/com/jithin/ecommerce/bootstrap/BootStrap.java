@@ -1,13 +1,16 @@
 package com.jithin.ecommerce.bootstrap;
 
 import com.github.javafaker.Faker;
+import com.jithin.ecommerce.controller.CategoryController;
 import com.jithin.ecommerce.controller.ProductController;
 import com.jithin.ecommerce.model.Category;
 import com.jithin.ecommerce.model.Product;
 import com.jithin.ecommerce.model.ProductColor;
+import com.jithin.ecommerce.model.Role;
 import com.jithin.ecommerce.services.CategoryService;
 import com.jithin.ecommerce.services.ProductColorService;
 import com.jithin.ecommerce.services.ProductService;
+import com.jithin.ecommerce.services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -22,6 +25,8 @@ public class BootStrap implements CommandLineRunner {
     private ProductService productService;
     @Autowired
     private ProductColorService productColorService;
+    @Autowired
+    private RoleService roleService;
 
     @Override
     public void run(String... args) throws Exception {
@@ -29,6 +34,21 @@ public class BootStrap implements CommandLineRunner {
 //        generateCategory(faker);
 //        generateProductColors(faker);
 //        generateProduct(faker);
+//        generateRole();
+    }
+
+    private void generateRole() {
+
+        List<String> roleNames = new ArrayList<>();
+        roleNames.add("ROLE_MEMBER");
+        roleNames.add("ROLE_ADMIN");
+        roleNames.add("ROLE_MANAGER");
+
+        for (int i = 0; i < 3; i++) {
+            Role role = new Role();
+            role.setName(roleNames.get(i));
+            roleService.create(role);
+        }
     }
 
     private void generateProductColors(Faker faker) {

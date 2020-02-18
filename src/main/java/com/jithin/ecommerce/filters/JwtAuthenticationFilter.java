@@ -5,6 +5,7 @@ import com.jithin.ecommerce.model.User;
 import com.jithin.ecommerce.services.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
@@ -16,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Collections;
 
 import static com.jithin.ecommerce.configuration.SecurityConfig.HEADER_STRING;
@@ -40,8 +42,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                 User user = customUserDetailService.loadUserById(userId);
 
+                Collection<? extends GrantedAuthority> authorities =user.getAuthorities();
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                        user, null, Collections.emptyList()
+                        user, null,authorities
                 );
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);

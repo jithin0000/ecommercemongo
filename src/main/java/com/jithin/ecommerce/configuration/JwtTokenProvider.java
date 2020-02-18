@@ -3,11 +3,13 @@ package com.jithin.ecommerce.configuration;
 import com.jithin.ecommerce.model.User;
 import io.jsonwebtoken.*;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static com.jithin.ecommerce.configuration.SecurityConfig.EXPIRATION_TIME;
 import static com.jithin.ecommerce.configuration.SecurityConfig.SECRET;
@@ -22,6 +24,11 @@ public class JwtTokenProvider {
         Map<String, Object> claims = new HashMap<>();
         claims.put("id", userid);
         claims.put("username", user.getUsername());
+        String authorities = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority).collect(Collectors.joining(","));
+
+
+        claims.put("roles",authorities);
 
         return Jwts.builder()
                 .setSubject(userid)

@@ -2,13 +2,17 @@ package com.jithin.ecommerce.model;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Data
 @Document
@@ -24,10 +28,17 @@ public class User implements UserDetails {
     @NotNull(message = "password is required field")
     private String password;
 
+    @DBRef(lazy = true)
+    private List<Role> roles = new ArrayList<>();
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+
+        String[] userRoles = this.getRoles().stream().map((role) -> role.getName()).toArray(String[]::new);
+
+        Collection<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(userRoles);
+        return authorities;
     }
 
 
