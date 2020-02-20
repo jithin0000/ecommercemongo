@@ -62,14 +62,15 @@ public class BootStrap implements CommandLineRunner {
     }
 
     private void generateProduct(Faker faker) {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 50; i++) {
             Product product = new Product();
             product.setName(faker.commerce().productName());
             product.setDescription(faker.lorem().sentence(15));
             product.setPrice(faker.number().numberBetween(78, 987));
             product.setQuantity(faker.number().randomDigit());
-            product.setCategory(service.getAll().get(i));
-            product.setColors(Arrays.asList(productColorService.getAll().get(i)));
+            product.setCategory(service.getAll().get(faker.number().numberBetween(1,10)));
+            product.setColors(Arrays.asList(productColorService.getAll().get(faker.number().numberBetween(1,11
+            ))));
 
             for (int j = 0; j < 5; j++) {
                 product.getImage_url().add(faker.internet().image());

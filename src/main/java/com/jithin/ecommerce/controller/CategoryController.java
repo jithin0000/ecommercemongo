@@ -20,19 +20,12 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping("")
-    public ResponseEntity<?> getAllCategories(
-            @RequestParam(value = "page", defaultValue = "0") String page,
-            @RequestParam(value = "size", defaultValue = "10") String size,
-            @RequestParam(value = "sort", defaultValue = "name") String sort,
-            @RequestParam(value = "search", defaultValue = "") String search
-    ) {
 
-        Page<Category> categories = categoryService.getPaginatedFilterCategories(
-                Integer.parseInt(page),
-                Integer.parseInt(size),
-                sort,
-                search);
+
+    @GetMapping("")
+    public ResponseEntity<?> getAllCategories( ) {
+
+        List<Category> categories = categoryService.getAll();
         return ResponseEntity.ok(
                 categories
         );
