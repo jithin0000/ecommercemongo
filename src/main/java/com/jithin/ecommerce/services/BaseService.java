@@ -1,5 +1,6 @@
 package com.jithin.ecommerce.services;
 
+import com.jithin.ecommerce.model.Cart;
 import com.jithin.ecommerce.model.Category;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
@@ -29,4 +30,6 @@ public class BaseService<T extends MongoRepository<E, String>, E> {
     public Optional<E> getById(String Id) {
         return repository.findById(Id);
     }
+
+
 }

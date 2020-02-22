@@ -1,4 +1,4 @@
-package com.jithin.ecommerce.configuration;
+package com.jithin.ecommerce.security;
 
 public class SecurityConfig {
     public static final String SECRET = "mySuperSecret@3445";

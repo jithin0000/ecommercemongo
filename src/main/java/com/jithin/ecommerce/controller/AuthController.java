@@ -1,6 +1,6 @@
 package com.jithin.ecommerce.controller;
 
-import com.jithin.ecommerce.configuration.JwtTokenProvider;
+import com.jithin.ecommerce.security.JwtTokenProvider;
 import com.jithin.ecommerce.dto.JwtTokenResponse;
 import com.jithin.ecommerce.dto.LoginRequestDto;
 import com.jithin.ecommerce.dto.RegisterRequestDto;
@@ -21,10 +21,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.management.relation.RoleNotFoundException;
 import javax.validation.Valid;
 
-import static com.jithin.ecommerce.configuration.SecurityConfig.TOKEN_PREFIX;
+import static com.jithin.ecommerce.security.SecurityConfig.TOKEN_PREFIX;
 
 @RestController
 @RequestMapping("/api/auth")

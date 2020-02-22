@@ -1,6 +1,6 @@
 package com.jithin.ecommerce.filters;
 
-import com.jithin.ecommerce.configuration.JwtTokenProvider;
+import com.jithin.ecommerce.security.JwtTokenProvider;
 import com.jithin.ecommerce.model.User;
 import com.jithin.ecommerce.services.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.Collections;
 
-import static com.jithin.ecommerce.configuration.SecurityConfig.HEADER_STRING;
-import static com.jithin.ecommerce.configuration.SecurityConfig.TOKEN_PREFIX;
+import static com.jithin.ecommerce.security.SecurityConfig.HEADER_STRING;
+import static com.jithin.ecommerce.security.SecurityConfig.TOKEN_PREFIX;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {

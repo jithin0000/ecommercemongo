@@ -1,4 +1,4 @@
-package com.jithin.ecommerce.configuration;
+package com.jithin.ecommerce.security;
 
 import com.jithin.ecommerce.model.User;
 import io.jsonwebtoken.*;
@@ -11,8 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.jithin.ecommerce.configuration.SecurityConfig.EXPIRATION_TIME;
-import static com.jithin.ecommerce.configuration.SecurityConfig.SECRET;
+import static com.jithin.ecommerce.security.SecurityConfig.EXPIRATION_TIME;
+import static com.jithin.ecommerce.security.SecurityConfig.SECRET;
 @Component
 public class JwtTokenProvider {
 

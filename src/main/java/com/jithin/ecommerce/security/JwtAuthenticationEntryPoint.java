@@ -1,4 +1,4 @@
-package com.jithin.ecommerce.configuration;
+package com.jithin.ecommerce.security;
 
 import com.google.gson.Gson;
 import com.jithin.ecommerce.dto.InvalidResponse;

@@ -1,4 +1,4 @@
-package com.jithin.ecommerce.configuration;
+package com.jithin.ecommerce.security;
 
 import com.jithin.ecommerce.filters.JwtAuthenticationFilter;
 import com.jithin.ecommerce.services.CustomUserDetailsService;
@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -15,14 +14,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import javax.servlet.Filter;
-import java.beans.Beans;
 
 @Configuration
 @EnableWebSecurity
@@ -66,6 +59,7 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         "/",
                         "/api/auth/**",
+                        "/api/cart/**",
                         "/**/*/*.png",
                         "/**/*/*.jpeg",
                         "/**/*/*.jpg",
@@ -77,7 +71,8 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
                 ).permitAll()
                 .antMatchers(HttpMethod.GET,
                         "/api/category/**",
-                        "/api/product/**"
+                        "/api/product/**",
+                        "/api/color/**"
                 ).permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(jwtAuthFilter(), UsernamePasswordAuthenticationFilter.class);
