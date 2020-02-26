@@ -40,6 +40,13 @@ public class CartController {
             }
         }
 
+        int total = 0;
+        for (int i = 0; i < cart.getProducts().size(); i++) {
+             total = cart.getCartTotal();
+        }
+
+        cart.setCartTotal(total);
+
         return new ResponseEntity<>(cartService.create(cart), HttpStatus.CREATED);
     }
     @GetMapping("/{id}")

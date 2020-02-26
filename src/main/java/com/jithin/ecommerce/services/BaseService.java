@@ -32,4 +32,8 @@ public class BaseService<T extends MongoRepository<E, String>, E> {
     }
 
 
+    public String delete(String id) {
+        getRepository().deleteById(id);
+        return "item deleted with this id " + id;
+    }
 }

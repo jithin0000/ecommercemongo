@@ -16,6 +16,7 @@ public class Cart {
     @DBRef
     private User user;
 
+    private int cartTotal =0;
     private List<Product> products = new ArrayList<>();
 
     public void addToCart(Product product) {
